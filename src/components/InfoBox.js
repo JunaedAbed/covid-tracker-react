@@ -15,7 +15,8 @@ function InfoBox({ title, cases, total }) {
         </Typography>
 
         <h2 className="infoBox__cases">
-          <CountUp start={0} end={cases} duration={2} separator="," />
+          {/* <CountUp start={0} end={cases} duration={2} separator="," /> */}
+          {cases}
         </h2>
 
         <Typography className="infoBox__total" color="textSecondary">
