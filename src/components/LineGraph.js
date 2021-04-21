@@ -70,7 +70,7 @@ function LineGraph({ casesType, ...props }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
+      await fetch(`https://disease.sh/v3/covid-19/historical/all?lastdays=120`)
         .then((res) => res.json())
         .then((data) => {
           let chartData = buildChartData(data, casesType);
@@ -82,7 +82,7 @@ function LineGraph({ casesType, ...props }) {
   }, [casesType]);
 
   return (
-    <div>
+    <div className={props.className}>
       {data?.length > 0 && (
         <Line
           options={options}
@@ -92,6 +92,7 @@ function LineGraph({ casesType, ...props }) {
                 data: data,
                 backgroundColor: "rgb(75, 192, 192)",
                 borderColor: "rgb(75, 100, 192)",
+                borderWidth: 1.5,
               },
             ],
           }}

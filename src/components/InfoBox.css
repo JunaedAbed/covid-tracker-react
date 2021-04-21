@@ -7,6 +7,18 @@
   margin-right: 22px;
 }
 
+.infoBox--selected {
+  border-top: 7px solid rgb(101, 230, 69);
+}
+
+.infoBox--red {
+  border-color: rgb(231, 27, 27);
+}
+
+.infoBox--blue {
+  border-color: rgb(51, 91, 167);
+}
+
 .infoBox__title {
   padding-right: 1.25rem;
 }
@@ -16,6 +28,14 @@
   font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
+}
+
+.infoBox__cases--green {
+  color: rgb(81, 179, 56);
+}
+
+.infoBox__cases--blue {
+  color: rgb(51, 91, 167);
 }
 
 .infoBox__total {
