@@ -2,7 +2,8 @@
   margin-top: 20px;
   overflow-y: scroll;
   height: 400px;
-  color: rgb(105, 105, 105);
+  /* color: rgb(105, 105, 105); */
+  color: #191d5c;
 }
 
 .table tr {
@@ -15,5 +16,5 @@
 }
 
 .table tr:nth-of-type(odd) {
-  background-color: rgb(212, 212, 212);
+  background-color: rgb(255, 255, 255);
 }

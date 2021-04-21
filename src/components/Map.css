@@ -12,7 +12,7 @@
 }
 
 .info-flag {
-  height: 70px;
+  height: 100px;
   width: 100%;
   background-size: cover;
   border-radius: 5px;
@@ -27,6 +27,7 @@
   font-size: 20px;
   font-weight: bold;
   color: darkslategray;
+  margin-bottom: 0.5rem;
 }
 
 .info-cases,

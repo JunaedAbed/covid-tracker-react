@@ -3,11 +3,12 @@
 }
 
 body {
-  background-color: rgb(219, 219, 219);
+  background-color: rgb(255, 255, 255);
 }
 
 .app__dropdown {
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
+  background-color: #bcc3dd;
 }
 
 .app {
@@ -21,6 +22,7 @@ body {
   align-items: center;
   margin-bottom: 20px;
   justify-content: space-between;
+  color: #191d5c;
 }
 
 .app__right {
@@ -30,6 +32,7 @@ body {
 }
 
 .app__right .MuiCardContent-root {
+  background-color: #bcc3dd;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
