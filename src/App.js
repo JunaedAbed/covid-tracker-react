@@ -76,69 +76,81 @@ function App() {
   };
 
   // console.log("countryInfo>>", countryInfo);
-  // console.log("country....", country);
+  console.log("country....", country);
 
   return (
-    <div className="app">
-      <div className="app__left">
-        <div className="app_header">
-          <h1>COVID-19 Tracker</h1>
-          <FormControl className="app__dropdown">
-            <Select
-              variant="outlined"
-              value={country}
-              onChange={onCountryChange}
-            >
-              <MenuItem value="worldwide">Worldwide</MenuItem>
-              {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+    <div className="main__app">
+      <div className="app">
+        <div className="app__left">
+          <div className="app_header">
+            <h1>COVID-19 Tracker</h1>
+            <FormControl className="app__dropdown">
+              <Select
+                variant="outlined"
+                value={country}
+                onChange={onCountryChange}
+              >
+                <MenuItem value="worldwide">Worldwide</MenuItem>
+                {countries.map((country) => (
+                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
+
+          <div className="app__stats">
+            <InfoBox
+              isBlue
+              active={casesType === "cases"}
+              onClick={(e) => setCasesType("cases")}
+              title="Infected"
+              cases={prettyPrint(countryInfo.todayCases)}
+              total={prettyPrint(countryInfo.cases)}
+            />
+            <InfoBox
+              active={casesType === "recovered"}
+              onClick={(e) => setCasesType("recovered")}
+              title="Recovered"
+              cases={prettyPrint(countryInfo.todayRecovered)}
+              total={prettyPrint(countryInfo.recovered)}
+            />
+            <InfoBox
+              isRed
+              active={casesType === "deaths"}
+              onClick={(e) => setCasesType("deaths")}
+              title="Deaths"
+              cases={prettyPrint(countryInfo.todayDeaths)}
+              total={prettyPrint(countryInfo.deaths)}
+            />
+          </div>
+
+          <Map
+            casesType={casesType}
+            countries={mapCountries}
+            center={mapCenter}
+            zoom={mapZoom}
+          />
         </div>
 
-        <div className="app__stats">
-          <InfoBox
-            isBlue
-            active={casesType === "cases"}
-            onClick={(e) => setCasesType("cases")}
-            title="Infected"
-            cases={prettyPrint(countryInfo.todayCases)}
-            total={prettyPrint(countryInfo.cases)}
-          />
-          <InfoBox
-            active={casesType === "recovered"}
-            onClick={(e) => setCasesType("recovered")}
-            title="Recovered"
-            cases={prettyPrint(countryInfo.todayRecovered)}
-            total={prettyPrint(countryInfo.recovered)}
-          />
-          <InfoBox
-            isRed
-            active={casesType === "deaths"}
-            onClick={(e) => setCasesType("deaths")}
-            title="Deaths"
-            cases={prettyPrint(countryInfo.todayDeaths)}
-            total={prettyPrint(countryInfo.deaths)}
-          />
-        </div>
-
-        <Map
-          casesType={casesType}
-          countries={mapCountries}
-          center={mapCenter}
-          zoom={mapZoom}
-        />
+        <Card className="app__right">
+          <CardContent>
+            <h3>Live cases by country</h3>
+            <Table countries={tableData} />
+            <h3 className="app__graph__header">Worldwide New {casesType}</h3>
+            <LineGraph
+              className="app__graph"
+              casesType={casesType}
+              country={country}
+            />
+          </CardContent>
+        </Card>
       </div>
-
-      <Card className="app__right">
-        <CardContent>
-          <h3>Live cases by country</h3>
-          <Table countries={tableData} />
-          <h3 className="app__graph__header">Worldwide New {casesType}</h3>
-          <LineGraph className="app__graph" casesType={casesType} />
-        </CardContent>
-      </Card>
+      <div className="country__graph">
+        <h3 className="app__graph__header">
+          {country} {casesType} Curve
+        </h3>
+        <LineGraph className="app__graph" casesType={casesType} />
+      </div>
     </div>
   );
 }

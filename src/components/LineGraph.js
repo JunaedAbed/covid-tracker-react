@@ -48,13 +48,15 @@ const options = {
   },
 };
 
-function LineGraph({ casesType, ...props }) {
+function LineGraph({ casesType, country, ...props }) {
+  console.log("graph country>>", country);
+
   const [data, setData] = useState({});
 
-  const buildChartData = (data, casesType = "cases") => {
+  const buildChartData = (data, casesType) => {
     const chartData = [];
     let lastDataPoint;
-
+    console.log("data timeline>>>", data.cases);
     for (let date in data.cases) {
       if (lastDataPoint) {
         const newDataPoint = {
@@ -65,21 +67,38 @@ function LineGraph({ casesType, ...props }) {
       }
       lastDataPoint = data[casesType][date];
     }
+    console.log("chart data>>>", chartData);
     return chartData;
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      await fetch(`https://disease.sh/v3/covid-19/historical/all?lastdays=120`)
-        .then((res) => res.json())
-        .then((data) => {
-          let chartData = buildChartData(data, casesType);
-          setData(chartData);
-        });
+      if (country === "worldwide") {
+        const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=30`;
+
+        await fetch(url)
+          .then((res) => res.json())
+          .then((data) => {
+            let chartData = buildChartData(data, casesType);
+            setData(chartData);
+            console.log("Data>>>", data);
+          });
+      } else {
+        const url = `https://disease.sh/v3/covid-19/historical/${country}?lastdays=30`;
+
+        await fetch(url)
+          // await fetch(`https://disease.sh/v3/covid-19/historical/all?lastdays=60`)
+          .then((res) => res.json())
+          .then((data) => {
+            let chartData = buildChartData(data.timeline, casesType);
+            setData(chartData);
+            console.log("Data>>>", data.timeline);
+          });
+      }
     };
 
     fetchData();
-  }, [casesType]);
+  }, [casesType, country]);
 
   return (
     <div className={props.className}>
@@ -90,9 +109,7 @@ function LineGraph({ casesType, ...props }) {
             datasets: [
               {
                 data: data,
-                // backgroundColor: "rgb(75, 192, 192)",
                 backgroundColor: "#BCC3DD",
-                // borderColor: "rgb(75, 100, 192)",
                 borderColor: "#191D5C",
                 borderWidth: 1.5,
                 fill: false,
