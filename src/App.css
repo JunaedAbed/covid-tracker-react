@@ -3,12 +3,12 @@
 }
 
 body {
-  background-color: rgb(255, 255, 255);
+  /* background-color: rgb(255, 255, 255); */
+  background-color: #d8dbec;
 }
 
 .app__dropdown {
-  /* background-color: rgb(255, 255, 255); */
-  background-color: #bcc3dd;
+  background-color: rgb(255, 255, 255);
 }
 
 .app {
@@ -31,8 +31,12 @@ body {
   flex-direction: column;
 }
 
+.MuiPaper-rounded {
+  border-radius: 5px !important;
+}
+
 .app__right .MuiCardContent-root {
-  background-color: #bcc3dd;
+  background-color: white;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
