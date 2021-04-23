@@ -49,14 +49,14 @@ const options = {
 };
 
 function LineGraph({ casesType, country, ...props }) {
-  console.log("graph country>>", country);
+  // console.log("graph country>>", country);
 
   const [data, setData] = useState({});
 
   const buildChartData = (data, casesType) => {
     const chartData = [];
     let lastDataPoint;
-    console.log("data timeline>>>", data.cases);
+    // console.log("data timeline>>>", data.cases);
     for (let date in data.cases) {
       if (lastDataPoint) {
         const newDataPoint = {
@@ -67,33 +67,36 @@ function LineGraph({ casesType, country, ...props }) {
       }
       lastDataPoint = data[casesType][date];
     }
-    console.log("chart data>>>", chartData);
+    // console.log("chart data>>>", chartData);
     return chartData;
   };
 
   useEffect(() => {
     const fetchData = async () => {
       if (country === "worldwide") {
-        const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=30`;
+        const url = `https://disease.sh/v3/covid-19/historical/all?lastdays=90`;
 
         await fetch(url)
           .then((res) => res.json())
           .then((data) => {
             let chartData = buildChartData(data, casesType);
             setData(chartData);
-            console.log("Data>>>", data);
+            // console.log("Data>>>", data);
           });
       } else {
-        const url = `https://disease.sh/v3/covid-19/historical/${country}?lastdays=30`;
+        try {
+          const url = `https://disease.sh/v3/covid-19/historical/${country}?lastdays=90`;
 
-        await fetch(url)
-          // await fetch(`https://disease.sh/v3/covid-19/historical/all?lastdays=60`)
-          .then((res) => res.json())
-          .then((data) => {
-            let chartData = buildChartData(data.timeline, casesType);
-            setData(chartData);
-            console.log("Data>>>", data.timeline);
-          });
+          await fetch(url)
+            .then((res) => res.json())
+            .then((data) => {
+              let chartData = buildChartData(data.timeline, casesType);
+              setData(chartData);
+              // console.log("Data>>>", data.timeline);
+            });
+        } catch (error) {
+          setData(0);
+        }
       }
     };
 

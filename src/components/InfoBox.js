@@ -24,7 +24,6 @@ function InfoBox({ title, cases, isRed, isBlue, active, total, ...props }) {
             !isRed && !isBlue && "infoBox__cases--green"
           }`}
         >
-          {/* <CountUp start={0} end={cases} duration={2} separator="," /> */}
           {cases}
         </h2>
 

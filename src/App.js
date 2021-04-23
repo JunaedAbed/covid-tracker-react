@@ -56,6 +56,7 @@ function App() {
 
   const onCountryChange = async (event) => {
     const countryCode = event.target.value;
+
     setCountry(countryCode);
 
     const url =
@@ -76,7 +77,7 @@ function App() {
   };
 
   // console.log("countryInfo>>", countryInfo);
-  console.log("country....", country);
+  // console.log("country....", countries);
 
   return (
     <div className="main__app">
@@ -92,7 +93,7 @@ function App() {
               >
                 <MenuItem value="worldwide">Worldwide</MenuItem>
                 {countries.map((country) => (
-                  <MenuItem value={country.value}>{country.name}</MenuItem>
+                  <MenuItem value={country.name}>{country.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
@@ -134,9 +135,11 @@ function App() {
 
         <Card className="app__right">
           <CardContent>
-            <h3>Live cases by country</h3>
+            <h3>Live cases all over the world</h3>
             <Table countries={tableData} />
-            <h3 className="app__graph__header">Worldwide New {casesType}</h3>
+            <h3 className="app__graph__header">
+              {country} New {casesType}
+            </h3>
             <LineGraph
               className="app__graph"
               casesType={casesType}
@@ -145,12 +148,7 @@ function App() {
           </CardContent>
         </Card>
       </div>
-      <div className="country__graph">
-        <h3 className="app__graph__header">
-          {country} {casesType} Curve
-        </h3>
-        <LineGraph className="app__graph" casesType={casesType} />
-      </div>
+      <div className="country__graph"></div>
     </div>
   );
 }
